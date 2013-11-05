@@ -1,0 +1,51 @@
+- Bouncebacks with notifications? Bouncebacks are desired... (NB many universities don't even do this)
+
+- Email opt-in process (trying to catch non-member submitting authors so these folks can receive AACR information)--didn't want to give them a chance to opt-out of the main AACR membership mailing list
+
+- Increases in fraud with journals (more detail needed)
+
+- Endorsers (sub-set of sponsors) are a big pain-point for AACR, drain on their resources, they do validate each of them
+	If the search was similar to the sponsor search it would help this process
+	Search "again" if they're associates, it's a sub-search now on the sponsors table (as endorsers)
+	If there was an email alert that went out notifying the selected sponsor, it would help
+	CTT has talked asbout changing how tables are populated, we'd need to review steps
+
+AACR: Mike Beveridge, Dave, Katie, Patty, 2 others
+CTT: Me, Mark, Dave, Sandy, Katie
+
+- Web services to populate the sponsorship table -> Parsing down to newly added; already have fields (see report)
+
+- Removal of some search fields to make people have to know their sponsor (not a free-form search)
+
+- Authentication on AACR.org (SSO) and then integrate with the OASIS login (pending AACR completion; try for Spring or Summer 2011)
+
+Top priority: Make the current sponsor update process more efficient; huge win for submitters and internal AACR service-based work
+	What is needed? ID the list of fields we need and are feasible to complete
+	Meet with an internal resource to ensure nothing is missing; narrate process in our language
+	Illustrate how it will change the sponsor-step, estimate it, rank it, execute
+
+- New question for undergrads who wish to join a competition; abstracts are submitted and difficult to weed-out sstudent specific submissions (risk is they could end up in a regular poster session...)
+
+- Can we require a member number for endorsers/sponsors (they have to be members)? Lookup would be the primary goal, but a phone call isn't a huge issue since they'll later have to look this information up regardless
+
+
+
+- Confirmation of lookup of co-author to ensure that the selected identity is the intended identity
+
+-Co-author required email field (undecided, need to follow-up); this will impact the completion of data-entry
+
+-Confirmed that the co-author completion of data will NOT hold-up the submission for AACR
+
+** Check on iCal download in GA for AACR
+
+- Session Building change idea: search term gets saved when a search is completed/have to click clear
+
+- Capture as integrated vendor, desire to see further pricing/demo of mobile capability
+
+- Validation of slide usage as a part of a notification or OASIS form completion
+
+- Presentation review and edit capabilities; interested in CTTCSC review/annotation process
+
+- Interested in disc and web distribution (eCom capabilities TBD)
+
+- Identify which presentations AACR can make free as next step

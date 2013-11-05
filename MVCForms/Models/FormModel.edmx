@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MVCFormsFormModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MVCFormsFormModelStoreContainer">
+          <EntitySet Name="FormFields" EntityType="MVCFormsFormModel.Store.FormFields" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FormFieldTypes" EntityType="MVCFormsFormModel.Store.FormFieldTypes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Forms" EntityType="MVCFormsFormModel.Store.Forms" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_FormFields_FormFieldTypes" Association="MVCFormsFormModel.Store.FK_FormFields_FormFieldTypes">
+            <End Role="FormFieldTypes" EntitySet="FormFieldTypes" />
+            <End Role="FormFields" EntitySet="FormFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormFields_Forms" Association="MVCFormsFormModel.Store.FK_FormFields_Forms">
+            <End Role="Forms" EntitySet="Forms" />
+            <End Role="FormFields" EntitySet="FormFields" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="FormFields">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FormUid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FormFieldTypeUid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FormFieldName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FormFieldPrompt" Type="nvarchar" MaxLength="255" />
+          <Property Name="LiteralText" Type="text" />
+          <Property Name="IsRequired" Type="tinyint" />
+          <Property Name="IsHidden" Type="tinyint" />
+          <Property Name="IsMultipleSelect" Type="tinyint" />
+          <Property Name="IsEmptyOption" Type="tinyint" />
+          <Property Name="EmptyOption" Type="nvarchar" MaxLength="50" />
+          <Property Name="Options" Type="nvarchar" MaxLength="500" />
+          <Property Name="ValidExtensions" Type="nvarchar" MaxLength="100" />
+          <Property Name="ErrorExtensions" Type="nvarchar" MaxLength="255" />
+          <Property Name="Orientation" Type="nvarchar" MaxLength="12" />
+          <Property Name="ListSize" Type="int" />
+          <Property Name="Rows" Type="int" />
+          <Property Name="Cols" Type="int" />
+          <Property Name="MaxSizeBytes" Type="int" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FormFieldTypes">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FieldTypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SortOrder" Type="int" />
+          <Property Name="FieldType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ControlType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ErrorMsgRequired" Type="nvarchar" MaxLength="255" />
+          <Property Name="RegExDefault" Type="nvarchar" MaxLength="255" />
+          <Property Name="ErrorMsgRegEx" Type="nvarchar" MaxLength="255" />
+          <Property Name="ValidExtensions" Type="nvarchar" MaxLength="100" />
+          <Property Name="ErrorExtensions" Type="nvarchar" MaxLength="255" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Forms">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ShortPath" Type="nvarchar" MaxLength="12" />
+          <Property Name="FormName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_FormFields_FormFieldTypes">
+          <End Role="FormFieldTypes" Type="MVCFormsFormModel.Store.FormFieldTypes" Multiplicity="1" />
+          <End Role="FormFields" Type="MVCFormsFormModel.Store.FormFields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormFieldTypes">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="FormFields">
+              <PropertyRef Name="FormFieldTypeUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormFields_Forms">
+          <End Role="Forms" Type="MVCFormsFormModel.Store.Forms" Multiplicity="1" />
+          <End Role="FormFields" Type="MVCFormsFormModel.Store.FormFields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forms">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="FormFields">
+              <PropertyRef Name="FormUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MVCFormsFormModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MVCFormsFormEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FormFields" EntityType="MVCFormsFormModel.FormField" />
+          <EntitySet Name="FormFieldTypes" EntityType="MVCFormsFormModel.FormFieldType" />
+          <EntitySet Name="Forms" EntityType="MVCFormsFormModel.Form" />
+          <AssociationSet Name="FK_FormFields_FormFieldTypes" Association="MVCFormsFormModel.FK_FormFields_FormFieldTypes">
+            <End Role="FormFieldTypes" EntitySet="FormFieldTypes" />
+            <End Role="FormFields" EntitySet="FormFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormFields_Forms" Association="MVCFormsFormModel.FK_FormFields_Forms">
+            <End Role="Forms" EntitySet="Forms" />
+            <End Role="FormFields" EntitySet="FormFields" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="FormField">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Guid" Nullable="false" />
+          <Property Name="FormUid" Type="Guid" Nullable="false" />
+          <Property Name="FormFieldTypeUid" Type="Guid" Nullable="false" />
+          <Property Name="FormFieldName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FormFieldPrompt" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="LiteralText" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="IsRequired" Type="Byte" />
+          <Property Name="IsHidden" Type="Byte" />
+          <Property Name="IsMultipleSelect" Type="Byte" />
+          <Property Name="IsEmptyOption" Type="Byte" />
+          <Property Name="EmptyOption" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Options" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+          <Property Name="ValidExtensions" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ErrorExtensions" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Orientation" Type="String" MaxLength="12" Unicode="true" FixedLength="false" />
+          <Property Name="ListSize" Type="Int32" />
+          <Property Name="Rows" Type="Int32" />
+          <Property Name="Cols" Type="Int32" />
+          <Property Name="MaxSizeBytes" Type="Int32" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="FormFieldType" Relationship="MVCFormsFormModel.FK_FormFields_FormFieldTypes" FromRole="FormFields" ToRole="FormFieldTypes" />
+          <NavigationProperty Name="Form" Relationship="MVCFormsFormModel.FK_FormFields_Forms" FromRole="FormFields" ToRole="Forms" />
+        </EntityType>
+        <EntityType Name="FormFieldType">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Guid" Nullable="false" />
+          <Property Name="FieldTypeName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="SortOrder" Type="Int32" />
+          <Property Name="FieldType" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ControlType" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ErrorMsgRequired" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="RegExDefault" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ErrorMsgRegEx" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="ValidExtensions" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ErrorExtensions" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="FormFields" Relationship="MVCFormsFormModel.FK_FormFields_FormFieldTypes" FromRole="FormFieldTypes" ToRole="FormFields" />
+        </EntityType>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="ShortPath" Type="String" MaxLength="12" Unicode="true" FixedLength="false" />
+          <Property Name="FormName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="FormFields" Relationship="MVCFormsFormModel.FK_FormFields_Forms" FromRole="Forms" ToRole="FormFields" />
+        </EntityType>
+        <Association Name="FK_FormFields_FormFieldTypes">
+          <End Role="FormFieldTypes" Type="MVCFormsFormModel.FormFieldType" Multiplicity="1" />
+          <End Role="FormFields" Type="MVCFormsFormModel.FormField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormFieldTypes">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="FormFields">
+              <PropertyRef Name="FormFieldTypeUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormFields_Forms">
+          <End Role="Forms" Type="MVCFormsFormModel.Form" Multiplicity="1" />
+          <End Role="FormFields" Type="MVCFormsFormModel.FormField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forms">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="FormFields">
+              <PropertyRef Name="FormUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MVCFormsFormModelStoreContainer" CdmEntityContainer="MVCFormsFormEntities">
+          <EntitySetMapping Name="FormFields"><EntityTypeMapping TypeName="MVCFormsFormModel.FormField"><MappingFragment StoreEntitySet="FormFields">
+            <ScalarProperty Name="Uid" ColumnName="Uid" />
+            <ScalarProperty Name="FormUid" ColumnName="FormUid" />
+            <ScalarProperty Name="FormFieldTypeUid" ColumnName="FormFieldTypeUid" />
+            <ScalarProperty Name="FormFieldName" ColumnName="FormFieldName" />
+            <ScalarProperty Name="FormFieldPrompt" ColumnName="FormFieldPrompt" />
+            <ScalarProperty Name="LiteralText" ColumnName="LiteralText" />
+            <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
+            <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+            <ScalarProperty Name="IsMultipleSelect" ColumnName="IsMultipleSelect" />
+            <ScalarProperty Name="IsEmptyOption" ColumnName="IsEmptyOption" />
+            <ScalarProperty Name="EmptyOption" ColumnName="EmptyOption" />
+            <ScalarProperty Name="Options" ColumnName="Options" />
+            <ScalarProperty Name="ValidExtensions" ColumnName="ValidExtensions" />
+            <ScalarProperty Name="ErrorExtensions" ColumnName="ErrorExtensions" />
+            <ScalarProperty Name="Orientation" ColumnName="Orientation" />
+            <ScalarProperty Name="ListSize" ColumnName="ListSize" />
+            <ScalarProperty Name="Rows" ColumnName="Rows" />
+            <ScalarProperty Name="Cols" ColumnName="Cols" />
+            <ScalarProperty Name="MaxSizeBytes" ColumnName="MaxSizeBytes" />
+            <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+            <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="FormFieldTypes"><EntityTypeMapping TypeName="MVCFormsFormModel.FormFieldType"><MappingFragment StoreEntitySet="FormFieldTypes">
+            <ScalarProperty Name="Uid" ColumnName="Uid" />
+            <ScalarProperty Name="FieldTypeName" ColumnName="FieldTypeName" />
+            <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+            <ScalarProperty Name="FieldType" ColumnName="FieldType" />
+            <ScalarProperty Name="ControlType" ColumnName="ControlType" />
+            <ScalarProperty Name="ErrorMsgRequired" ColumnName="ErrorMsgRequired" />
+            <ScalarProperty Name="RegExDefault" ColumnName="RegExDefault" />
+            <ScalarProperty Name="ErrorMsgRegEx" ColumnName="ErrorMsgRegEx" />
+            <ScalarProperty Name="ValidExtensions" ColumnName="ValidExtensions" />
+            <ScalarProperty Name="ErrorExtensions" ColumnName="ErrorExtensions" />
+            <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Forms"><EntityTypeMapping TypeName="MVCFormsFormModel.Form"><MappingFragment StoreEntitySet="Forms">
+            <ScalarProperty Name="Uid" ColumnName="Uid" />
+            <ScalarProperty Name="UserId" ColumnName="UserId" />
+            <ScalarProperty Name="ShortPath" ColumnName="ShortPath" />
+            <ScalarProperty Name="FormName" ColumnName="FormName" />
+            <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="FormModel">
+        <EntityTypeShape EntityType="MVCFormsFormModel.FormField" Width="1.5" PointX="3" PointY="1.125" Height="5.4417122395833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCFormsFormModel.FormFieldType" Width="1.5" PointX="0.75" PointY="2.125" Height="3.326396484375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCFormsFormModel.Form" Width="1.5" PointX="0.75" PointY="7.75" Height="2.1725878906249996" IsExpanded="true" />
+        <AssociationConnector Association="MVCFormsFormModel.FK_FormFields_FormFieldTypes" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="3.7881982421875" />
+          <ConnectorPoint PointX="3" PointY="3.7881982421875" />
+        </AssociationConnector>
+        <AssociationConnector Association="MVCFormsFormModel.FK_FormFields_Forms" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="8.8362939453125" />
+          <ConnectorPoint PointX="3.75" PointY="8.8362939453125" />
+          <ConnectorPoint PointX="3.75" PointY="6.5667122395833317" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

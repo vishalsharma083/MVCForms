@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MVCFormsResponseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MVCFormsResponseModelStoreContainer">
+          <EntitySet Name="FormResponseItems" EntityType="MVCFormsResponseModel.Store.FormResponseItems" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FormResponses" EntityType="MVCFormsResponseModel.Store.FormResponses" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_FormResponseItems_FormResponses" Association="MVCFormsResponseModel.Store.FK_FormResponseItems_FormResponses">
+            <End Role="FormResponses" EntitySet="FormResponses" />
+            <End Role="FormResponseItems" EntitySet="FormResponseItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormResponses_FormResponses" Association="MVCFormsResponseModel.Store.FK_FormResponses_FormResponses">
+            <End Role="FormResponses" EntitySet="FormResponses" />
+            <End Role="FormResponses1" EntitySet="FormResponses" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="FormResponseItems">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FormResponseUid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FormItemUid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ResponseStr" Type="nvarchar" MaxLength="255" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FormResponses">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FormUid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_FormResponseItems_FormResponses">
+          <End Role="FormResponses" Type="MVCFormsResponseModel.Store.FormResponses" Multiplicity="1" />
+          <End Role="FormResponseItems" Type="MVCFormsResponseModel.Store.FormResponseItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormResponses">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="FormResponseItems">
+              <PropertyRef Name="FormResponseUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormResponses_FormResponses">
+          <End Role="FormResponses" Type="MVCFormsResponseModel.Store.FormResponses" Multiplicity="1" />
+          <End Role="FormResponses1" Type="MVCFormsResponseModel.Store.FormResponses" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FormResponses">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="FormResponses1">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MVCFormsResponseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MVCFormsResponseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FormResponseItems" EntityType="MVCFormsResponseModel.FormResponseItem" />
+          <EntitySet Name="FormResponses" EntityType="MVCFormsResponseModel.FormResponse" />
+          <AssociationSet Name="FK_FormResponseItems_FormResponses" Association="MVCFormsResponseModel.FK_FormResponseItems_FormResponses">
+            <End Role="FormResponses" EntitySet="FormResponses" />
+            <End Role="FormResponseItems" EntitySet="FormResponseItems" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="FormResponseItem">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Guid" Nullable="false" />
+          <Property Name="FormResponseUid" Type="Guid" Nullable="false" />
+          <Property Name="FormItemUid" Type="Guid" Nullable="false" />
+          <Property Name="ResponseStr" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="FormResponse" Relationship="MVCFormsResponseModel.FK_FormResponseItems_FormResponses" FromRole="FormResponseItems" ToRole="FormResponses" />
+        </EntityType>
+        <EntityType Name="FormResponse">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Guid" Nullable="false" />
+          <Property Name="FormUid" Type="Guid" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="FormResponseItems" Relationship="MVCFormsResponseModel.FK_FormResponseItems_FormResponses" FromRole="FormResponses" ToRole="FormResponseItems" />
+          </EntityType>
+        <Association Name="FK_FormResponseItems_FormResponses">
+          <End Role="FormResponses" Type="MVCFormsResponseModel.FormResponse" Multiplicity="1" />
+          <End Role="FormResponseItems" Type="MVCFormsResponseModel.FormResponseItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormResponses">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="FormResponseItems">
+              <PropertyRef Name="FormResponseUid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MVCFormsResponseModelStoreContainer" CdmEntityContainer="MVCFormsResponseEntities">
+          <EntitySetMapping Name="FormResponseItems"><EntityTypeMapping TypeName="MVCFormsResponseModel.FormResponseItem"><MappingFragment StoreEntitySet="FormResponseItems">
+            <ScalarProperty Name="Uid" ColumnName="Uid" />
+            <ScalarProperty Name="FormResponseUid" ColumnName="FormResponseUid" />
+            <ScalarProperty Name="FormItemUid" ColumnName="FormItemUid" />
+            <ScalarProperty Name="ResponseStr" ColumnName="ResponseStr" />
+            <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="FormResponses"><EntityTypeMapping TypeName="MVCFormsResponseModel.FormResponse"><MappingFragment StoreEntitySet="FormResponses">
+            <ScalarProperty Name="Uid" ColumnName="Uid" />
+            <ScalarProperty Name="FormUid" ColumnName="FormUid" />
+            <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="ResponseModel">
+        <EntityTypeShape EntityType="MVCFormsResponseModel.FormResponseItem" Width="1.5" PointX="3" PointY="0.875" Height="2.1725878906250005" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCFormsResponseModel.FormResponse" Width="1.5" PointX="0.75" PointY="0.875" Height="2.1725878906249996" IsExpanded="true" />
+        <AssociationConnector Association="MVCFormsResponseModel.FK_FormResponseItems_FormResponses" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.9612939453125" />
+          <ConnectorPoint PointX="3" PointY="1.9612939453125" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
