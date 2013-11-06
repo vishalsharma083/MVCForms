@@ -18,7 +18,7 @@ namespace MVCForms.Controllers
         readonly MVCFormsFormEntities _mvcForms = new MVCFormsFormEntities();
         readonly MVCFormsResponseEntities _mvcResponses = new MVCFormsResponseEntities();
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public ActionResult List()
         {
@@ -44,7 +44,7 @@ namespace MVCForms.Controllers
             return View(viewModel);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
@@ -54,7 +54,7 @@ namespace MVCForms.Controllers
             return View(viewModel);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         public ActionResult Create(FormViewModel viewModel)
         {
@@ -127,7 +127,7 @@ namespace MVCForms.Controllers
             return builder.ToString().ToLowerInvariant();
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
@@ -185,7 +185,7 @@ namespace MVCForms.Controllers
             return View(viewModel);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [ValidateInput(false)] //This allows HTML posts to be accepted; we use AntiXss to avoid issues
         public ActionResult Edit(FormViewModel viewModel)
@@ -590,7 +590,7 @@ namespace MVCForms.Controllers
             return formFieldTypeList;
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public AjaxViewResult NewFormField(string formId, Guid selectedFieldType)
         {
