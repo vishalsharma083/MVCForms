@@ -1,0 +1,35 @@
+@Model MVCForms.Models.UserProfileViewModel
+
+@{ 
+ ViewBag.Title = "Edit My Profile"; 
+}
+
+@section MainContent { 
+<h2>Edit My Profile</h2>
+         @using (Html.BeginForm()) {
+              <div>
+            <fieldset>
+            <legend>It's all about you...</legend>
+                <div class="editor-label">
+                    @(Html.LabelFor(m => m.FirstName))
+                </div>
+                <div class="editor-field">            
+                    @(Html.TextBoxFor(m => m.FirstName ))
+                    @(Html.ValidationMessageFor(m => m.FirstName ))
+                </div>
+                <div class="editor-label">
+                    @(Html.LabelFor(m => m.LastName))
+                </div>
+                <div class="editor-field">
+             
+                    @(Html.TextBoxFor(m => m.LastName ))
+                    @(Html.ValidationMessageFor(m => m.LastName ))
+                </div>
+
+                <p>
+                    <input type="submit" value="Update Profile" />
+                </p>
+            </fieldset>
+        </div>
+    } 
+}
